@@ -1,12 +1,9 @@
 'use client'
 import Head from 'next/head'
-import Button from '@mui/material/Button'
-import { useTheme } from '@emotion/react'
+import CustomTextField from 'src/components/text-field'
+import { Box } from '@mui/material'
 
 export default function Home() {
-  const theme = useTheme()
-  console.log(theme)
-
   return (
     <>
       <Head>
@@ -19,7 +16,9 @@ export default function Home() {
           href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏪</text></svg>'
         />
       </Head>
-      <Button variant='contained'>Hello world</Button>
+      <Box sx={{ margin: 6, width: 200 }}>
+        <CustomTextField id='outlined-multiline-flexible' label='Multiline' />
+      </Box>
     </>
   )
 }
