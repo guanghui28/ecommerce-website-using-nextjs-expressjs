@@ -1,7 +1,6 @@
 'use client'
 import Head from 'next/head'
 import Button from '@mui/material/Button'
-import { useEffect } from 'react'
 
 export default function Home() {
   return (
