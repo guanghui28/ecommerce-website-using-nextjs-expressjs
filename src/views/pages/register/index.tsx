@@ -45,12 +45,12 @@ type TDefaultValues = {
 }
 
 const LoginPage: NextPage<TProps> = () => {
-  //theme
-  const theme = useTheme()
-
   //state
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
+  //theme
+  const theme = useTheme()
 
   const schema = yup.object().shape({
     email: yup.string().required('This field is requirced').matches(EMAIL_REG, 'Email field is must email type'),
@@ -240,7 +240,7 @@ const LoginPage: NextPage<TProps> = () => {
               <Link
                 href='/login'
                 style={{
-                  color: theme.palette.mode === 'light' ? theme.palette.common.black : theme.palette.common.white
+                  color: theme.palette.primary.main
                 }}
               >
                 Login
@@ -257,9 +257,8 @@ const LoginPage: NextPage<TProps> = () => {
               <IconButton sx={{ color: '#497ce2' }}>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
-                  aria-hidden='true'
                   role='img'
-                  font-size='1.375rem'
+                  fontSize='1.375rem'
                   className='iconify iconify--mdi'
                   width='1em'
                   height='1em'
@@ -278,9 +277,8 @@ const LoginPage: NextPage<TProps> = () => {
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
-                  aria-hidden='true'
                   role='img'
-                  font-size='1.375rem'
+                  fontSize='1.375rem'
                   className='iconify iconify--mdi'
                   width='1em'
                   height='1em'

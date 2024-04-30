@@ -36,6 +36,9 @@ import { EMAIL_REG, PASSWORD_REG } from 'src/configs/regex'
 import loginDark from '/public/images/login-dark.png'
 import loginLight from '/public/images/login-light.png'
 
+// ** Hooks
+import { useAuth } from 'src/hooks/useAuth'
+
 type TProps = {}
 
 type TDefaultValues = {
@@ -44,12 +47,15 @@ type TDefaultValues = {
 }
 
 const RegisterPage: NextPage<TProps> = () => {
-  //theme
-  const theme = useTheme()
-
   //state
   const [showPassword, setShowPassword] = useState(false)
   const [isRemember, setIsRemember] = useState(false)
+
+  // ** context
+  const { login } = useAuth()
+
+  //theme
+  const theme = useTheme()
 
   const schema = yup.object().shape({
     email: yup.string().required('This field is required').matches(EMAIL_REG, 'Email field is must email type'),
@@ -75,7 +81,9 @@ const RegisterPage: NextPage<TProps> = () => {
   })
 
   function onSubmit(data: { email: string; password: string }) {
-    console.log(data)
+    if (!Object.keys(errors).length) {
+      login({ ...data, rememberMe: isRemember })
+    }
   }
 
   return (
@@ -212,7 +220,7 @@ const RegisterPage: NextPage<TProps> = () => {
               <Link
                 href='/register'
                 style={{
-                  color: theme.palette.mode === 'light' ? theme.palette.common.black : theme.palette.common.white
+                  color: theme.palette.primary.main
                 }}
               >
                 Sign Up
@@ -229,9 +237,8 @@ const RegisterPage: NextPage<TProps> = () => {
               <IconButton sx={{ color: '#497ce2' }}>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
-                  aria-hidden='true'
                   role='img'
-                  font-size='1.375rem'
+                  fontSize='1.375rem'
                   className='iconify iconify--mdi'
                   width='1em'
                   height='1em'
@@ -250,9 +257,8 @@ const RegisterPage: NextPage<TProps> = () => {
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
-                  aria-hidden='true'
                   role='img'
-                  font-size='1.375rem'
+                  fontSize='1.375rem'
                   className='iconify iconify--mdi'
                   width='1em'
                   height='1em'
