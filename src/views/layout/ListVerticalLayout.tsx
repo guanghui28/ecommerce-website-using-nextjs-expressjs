@@ -2,7 +2,7 @@
 import { NextPage } from 'next'
 
 // ** React
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // ** MUI
 
@@ -20,19 +20,35 @@ import IconifyIcon from 'src/components/Icon'
 // ** Config
 import { verticalItems } from 'src/configs/layout'
 
-type TProps = {}
+type TProps = {
+  open: boolean
+}
 
-const RecursiveListItems = ({
-  items,
-  level
-}: {
-  items: any
+type TListItems = {
   level: number
-}) => {
-  const [openItems, setOpenItems] = useState<{ [key: string]: boolean }>({})
+  openItems: {
+    [key: string]: boolean
+  }
+  items: any
+  setOpenItems: React.Dispatch<
+    React.SetStateAction<{
+      [key: string]: boolean
+    }>
+  >
+  disabled: boolean
+}
 
+const RecursiveListItems: NextPage<TListItems> = ({
+  items,
+  level,
+  disabled,
+  setOpenItems,
+  openItems
+}) => {
   function handleClick(title: string) {
-    setOpenItems(prev => ({ ...prev, [title]: !prev[title] }))
+    if (!disabled) {
+      setOpenItems(prev => ({ ...prev, [title]: !prev[title] }))
+    }
   }
   return (
     <>
@@ -40,7 +56,7 @@ const RecursiveListItems = ({
         <React.Fragment key={item.title}>
           <ListItemButton
             sx={{
-              padding: `8px 10px 8px ${level * 10}px`
+              padding: `8px 10px 8px ${level * (level === 1 ? 28 : 20)}px`
             }}
             onClick={() => {
               if (item.children) {
@@ -51,16 +67,16 @@ const RecursiveListItems = ({
             <ListItemIcon>
               <IconifyIcon icon={item.icon} />
             </ListItemIcon>
-            <ListItemText primary={item.title} />
+            {!disabled && <ListItemText primary={item.title} />}
             {item?.children && item.children.length > 0 && (
               <>
                 {openItems[item.title] ? (
+                  <IconifyIcon icon='mdi:expand-less' />
+                ) : (
                   <IconifyIcon
                     icon='mdi:expand-less'
                     style={{ transform: 'rotate(180deg)' }}
                   />
-                ) : (
-                  <IconifyIcon icon='mdi:expand-less' />
                 )}
               </>
             )}
@@ -68,7 +84,13 @@ const RecursiveListItems = ({
           {item.children && item.children.length > 0 && (
             <>
               <Collapse in={openItems[item.title]} timeout='auto' unmountOnExit>
-                <RecursiveListItems items={item.children} level={level + 1} />
+                <RecursiveListItems
+                  items={item.children}
+                  level={level + 1}
+                  disabled={disabled}
+                  setOpenItems={setOpenItems}
+                  openItems={openItems}
+                />
               </Collapse>
             </>
           )}
@@ -78,14 +100,28 @@ const RecursiveListItems = ({
   )
 }
 
-const ListVerticalLayout: NextPage<TProps> = () => {
+const ListVerticalLayout: NextPage<TProps> = ({ open }) => {
+  const [openItems, setOpenItems] = useState<{ [key: string]: boolean }>({})
+
+  useEffect(() => {
+    if (!open) {
+      setOpenItems({})
+    }
+  }, [open])
+
   return (
     <List
       sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
       component='nav'
       aria-labelledby='nested-list-subheader'
     >
-      <RecursiveListItems items={verticalItems} level={1} />
+      <RecursiveListItems
+        disabled={!open}
+        openItems={openItems}
+        setOpenItems={setOpenItems}
+        items={verticalItems}
+        level={1}
+      />
     </List>
   )
 }
