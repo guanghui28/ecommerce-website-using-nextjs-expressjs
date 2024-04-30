@@ -52,16 +52,22 @@ const RegisterPage: NextPage<TProps> = () => {
   const [isRemember, setIsRemember] = useState(false)
 
   const schema = yup.object().shape({
-    email: yup.string().required('This field is required').matches(EMAIL_REG, 'Email field is must email type'),
+    email: yup
+      .string()
+      .required('This field is required')
+      .matches(EMAIL_REG, 'Email field is must email type'),
     password: yup
       .string()
       .required('This field is required')
-      .matches(PASSWORD_REG, 'Password must contain at least 8 character, includes special key, number')
+      .matches(
+        PASSWORD_REG,
+        'Password must contain at least 8 character, includes special key, number'
+      )
   })
 
   const defaultValues: TDefaultValues = {
-    email: '',
-    password: ''
+    email: 'admin@gmail.com',
+    password: '123456789Kha@'
   }
 
   const {
@@ -113,7 +119,14 @@ const RegisterPage: NextPage<TProps> = () => {
           }}
         />
       </Box>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flex: 1
+        }}
+      >
         <CssBaseline />
         <Box
           sx={{
@@ -168,7 +181,10 @@ const RegisterPage: NextPage<TProps> = () => {
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position='end'>
-                          <IconButton edge='end' onClick={() => setShowPassword(on => !on)}>
+                          <IconButton
+                            edge='end'
+                            onClick={() => setShowPassword(on => !on)}
+                          >
                             {showPassword ? (
                               <CustomIcon icon='material-symbols:visibility-outline' />
                             ) : (
@@ -183,7 +199,14 @@ const RegisterPage: NextPage<TProps> = () => {
                 name='password'
               />
             </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 2 }}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                mt: 2
+              }}
+            >
               <FormControlLabel
                 control={
                   <Checkbox
@@ -197,7 +220,12 @@ const RegisterPage: NextPage<TProps> = () => {
               />
               <Link href='#'>Forgot password?</Link>
             </Box>
-            <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
+            <Button
+              type='submit'
+              fullWidth
+              variant='contained'
+              sx={{ mt: 3, mb: 2 }}
+            >
               Sign In
             </Button>
             <Box
@@ -218,7 +246,9 @@ const RegisterPage: NextPage<TProps> = () => {
                 Sign Up
               </Link>
             </Box>
-            <Typography sx={{ textAlign: 'center', mt: 2, mb: 2 }}>Or</Typography>
+            <Typography sx={{ textAlign: 'center', mt: 2, mb: 2 }}>
+              Or
+            </Typography>
             <Box
               sx={{
                 display: 'flex',
