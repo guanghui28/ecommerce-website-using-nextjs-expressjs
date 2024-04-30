@@ -1,7 +1,12 @@
 'use client'
+// ** Next
 import Head from 'next/head'
-import CustomTextField from 'src/components/text-field'
-import { Box } from '@mui/material'
+
+// ** React
+import { ReactNode } from 'react'
+
+// ** Layout
+import LayoutNotApp from 'src/views/layout/LayoutNotApp'
 
 export default function Home() {
   return (
@@ -16,9 +21,8 @@ export default function Home() {
           href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏪</text></svg>'
         />
       </Head>
-      <Box sx={{ margin: 6, width: 200 }}>
-        <CustomTextField id='outlined-multiline-flexible' label='Multiline' />
-      </Box>
     </>
   )
 }
+
+Home.getLayout = (page: ReactNode) => <LayoutNotApp>{page}</LayoutNotApp>
