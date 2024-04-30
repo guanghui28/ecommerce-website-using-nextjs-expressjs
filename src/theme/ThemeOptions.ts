@@ -3,7 +3,7 @@ import { deepmerge } from '@mui/utils'
 import { PaletteMode, ThemeOptions } from '@mui/material'
 
 // ** User Theme Options
-import UserThemeOptions from 'src/layouts/UserThemeOptions'
+import UserThemeOptions from 'src/views/layout/UserThemeOptions'
 
 // ** Type Import
 
@@ -16,7 +16,10 @@ import typography from './typography'
 import breakpoints from './breakpoints'
 import { Settings } from 'src/contexts/SettingsContext'
 
-const themeOptions = (settings: Settings, overrideMode: PaletteMode): ThemeOptions => {
+const themeOptions = (
+  settings: Settings,
+  overrideMode: PaletteMode
+): ThemeOptions => {
   // ** Vars
   const { skin, mode, direction, themeColor } = settings
 

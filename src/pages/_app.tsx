@@ -31,11 +31,15 @@ import { store } from 'src/stores'
 import GuestGuard from 'src/components/auth/GuestGuard'
 import AuthGuard from 'src/components/auth/AuthGuard'
 import FallbackSpinner from 'src/components/fall-back'
-import { SettingsConsumer, SettingsProvider } from 'src/contexts/SettingsContext'
+import {
+  SettingsConsumer,
+  SettingsProvider
+} from 'src/contexts/SettingsContext'
 import AclGuard from 'src/components/auth/AclGuard'
 import ReactHotToast from 'src/components/react-hot-toast'
 import { useSettings } from 'src/hooks/useSettings'
 import ThemeComponent from 'src/theme/ThemeComponent'
+import UserLayout from 'src/views/layout/UserLayout'
 
 type ExtendedAppProps = AppProps & {
   Component: NextPage
@@ -77,7 +81,8 @@ export default function App(props: ExtendedAppProps) {
   const { settings } = useSettings()
 
   // Variables
-  const getLayout = Component.getLayout ?? (page => <>{page}</>)
+  const getLayout =
+    Component.getLayout ?? (page => <UserLayout>{page}</UserLayout>)
 
   const setConfig = Component.setConfig ?? undefined
 
@@ -110,7 +115,10 @@ export default function App(props: ExtendedAppProps) {
           name='description'
           content={`${themeConfig.templateName} – Material Design React Admin Dashboard Template – is the most developer friendly & highly customizable Admin Dashboard Template based on MUI v5.`}
         />
-        <meta name='keywords' content='Material Design, MUI, Admin Template, React Admin Template' />
+        <meta
+          name='keywords'
+          content='Material Design, MUI, Admin Template, React Admin Template'
+        />
         <meta name='viewport' content='initial-scale=1, width=device-width' />
       </Head>
 
@@ -121,12 +129,19 @@ export default function App(props: ExtendedAppProps) {
               return (
                 <ThemeComponent settings={settings}>
                   <Guard authGuard={authGuard} guestGuard={guestGuard}>
-                    <AclGuard aclAbilities={aclAbilities} guestGuard={guestGuard} authGuard={authGuard}>
+                    <AclGuard
+                      aclAbilities={aclAbilities}
+                      guestGuard={guestGuard}
+                      authGuard={authGuard}
+                    >
                       {getLayout(<Component {...pageProps} />)}
                     </AclGuard>
                   </Guard>
                   <ReactHotToast>
-                    <Toaster position={settings.toastPosition} toastOptions={toastOptions} />
+                    <Toaster
+                      position={settings.toastPosition}
+                      toastOptions={toastOptions}
+                    />
                   </ReactHotToast>
                 </ThemeComponent>
               )
