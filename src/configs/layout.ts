@@ -1,31 +1,25 @@
 export const verticalItems = [
   {
-    title: 'Email',
+    title: 'System',
     icon: 'ic:outline-more',
-    path: '/',
     children: [
       {
-        title: 'Password',
+        title: 'Product',
         icon: 'ic:outline-more',
-        path: '/'
+        path: '/product',
+        children: [
+          {
+            title: 'Product type',
+            icon: 'ic:outline-more',
+            path: '/product-type'
+          }
+        ]
       }
     ]
   },
   {
-    title: 'Hello',
+    title: 'User',
     icon: 'ic:outline-more',
-    path: '/',
-    children: [
-      {
-        title: 'Here',
-        icon: 'ic:outline-more',
-        path: '/'
-      }
-    ]
-  },
-  {
-    title: 'World',
-    icon: 'ic:outline-more',
-    path: '/'
+    path: '/user'
   }
 ]
