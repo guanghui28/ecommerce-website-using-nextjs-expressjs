@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton'
 import Badge from '@mui/material/Badge'
 
 // ** COMPONENTS
-// import IconifyIcon from 'src/components/Icon'
+import IconifyIcon from 'src/components/Icon'
 
 const drawerWidth: number = 240
 
@@ -59,7 +59,7 @@ const HorizontalLayout: NextPage<TProps> = ({ open, toggleDrawer }) => {
             ...(open && { display: 'none' })
           }}
         >
-          {/* <IconifyIcon icon='ic:round-menu' /> */}
+          <IconifyIcon icon='mingcute:menu-fill' />
         </IconButton>
         <Typography
           component='h1'
@@ -72,7 +72,7 @@ const HorizontalLayout: NextPage<TProps> = ({ open, toggleDrawer }) => {
         </Typography>
         <IconButton color='inherit'>
           <Badge badgeContent={4} color='secondary'>
-            {/* <IconifyIcon icon='iconamoon:notification-light' /> */}
+            <IconifyIcon icon='clarity:notification-line' />
           </Badge>
         </IconButton>
       </Toolbar>
